@@ -216,15 +216,14 @@ io.on('connection', socket => {
       let dbDevice = await Device.findOne({
         sk: device.serialKey
       }).lean();
-      console.log('incoming file');
+      console.log(`Recieved file ${q.meta.Name}`);
 
       let data = await Wasabi.upload({
         content: q.content,
-        name: q.file
+        name: 'videos/'+q.meta.Name
       })
-      console.log(data);
 
-      console.log(q);
+      console.log(`File Uploaded`, data);
     }catch(e) {
       console.log(e);
     }
